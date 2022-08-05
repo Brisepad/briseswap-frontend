@@ -17,6 +17,25 @@ const pools: PoolConfig[] = [
     sortOrder: 1,
     isFinished: false,
   },
+  // 0x87fEec3E5b4d683CFdB784e6cDacE08F2F4FA46B
+  {
+
+
+      sousId: 1,
+      stakingToken: tokens.bswap,
+      earningToken: tokens.bpad,
+      contractAddress: {
+        32520: '0x87fEec3E5b4d683CFdB784e6cDacE08F2F4FA46B',
+        97: '',
+        56: '0x4ea43fce546975aae120c9eeceb172500be4a02b',
+      },
+      poolCategory: PoolCategory.CORE,
+      harvest: true,
+      sortOrder: 999,
+      tokenPerBlock: '10',
+  },
+
+  
 //   {
 //     sousId: 174,
 //     stakingToken: tokens.cake,

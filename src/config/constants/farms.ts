@@ -405,8 +405,8 @@ const farms: FarmConfig[] = [
     },
     lpDecimals: 18,
     isLpToken: true,
-    token: tokens.bswap,
-    quoteToken: tokens.bpad,
+    token: tokens.bpad,
+    quoteToken: tokens.bswap,
   },
   {
     pid: 30,
