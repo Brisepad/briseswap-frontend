@@ -45,6 +45,19 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   },
   {
+    pid: 32,
+    lpSymbol: 'CCUBE TOKEN',
+    lpAddresses: {
+      32520: '0xD2C685D6CB45F6E32618337599Cc7C0Bf11C65ff',
+      97: '',
+      56: '',
+    },
+    lpDecimals: 18,
+    isLpToken: false,
+    token: tokens.ccube,
+    quoteToken: tokens.wbnb,
+  },
+  {
     pid: 31,
     lpSymbol: 'META TOKEN',
     lpAddresses: {

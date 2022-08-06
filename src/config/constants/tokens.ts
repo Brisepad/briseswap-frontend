@@ -282,6 +282,16 @@ const tokens = {
     },
     decimals: 18,
     projectLink: 'https://metaforcebrise.xyz/',
+  },
+  ccube: {
+    symbol: 'CCUBE',
+    address: {
+      32520: '0xD2C685D6CB45F6E32618337599Cc7C0Bf11C65ff',
+      56: '',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://cubeprotocol.io/',
   }
   
 
