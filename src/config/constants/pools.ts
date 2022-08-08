@@ -17,25 +17,62 @@ const pools: PoolConfig[] = [
     sortOrder: 1,
     isFinished: false,
   },
-  // 0x87fEec3E5b4d683CFdB784e6cDacE08F2F4FA46B
   {
-
-
-      sousId: 1,
-      stakingToken: tokens.bswap,
-      earningToken: tokens.bpad,
-      contractAddress: {
-        32520: '0x87fEec3E5b4d683CFdB784e6cDacE08F2F4FA46B',
-        97: '',
-        56: '0x4ea43fce546975aae120c9eeceb172500be4a02b',
-      },
-      poolCategory: PoolCategory.CORE,
-      harvest: true,
-      sortOrder: 999,
-      tokenPerBlock: '10',
+    sousId: 11,
+    stakingToken: tokens.bswap,
+    earningToken: tokens.bpad,
+    contractAddress: {
+      32520: '0x87fEec3E5b4d683CFdB784e6cDacE08F2F4FA46B',
+      97: '',
+      56: '0x4ea43fce546975aae120c9eeceb172500be4a02b',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: false,
+    sortOrder: 999,
+    tokenPerBlock: '10',
   },
-
-  
+  {
+    sousId: 12,
+    stakingToken: tokens.xrice,
+    earningToken: tokens.baskom,
+    contractAddress: {
+      32520: '0x86c14A920FAb178082636B12Df8f09704e3701F3',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '0.57',
+  },
+  {
+    sousId: 13,
+    stakingToken: tokens.xrice,
+    earningToken: tokens.wbnb,
+    contractAddress: {
+      32520: '0xaece175A5f2CF7a29C32CbD434fdD19a914473f4',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '7716',
+  },
+  {
+    sousId: 14,
+    stakingToken: tokens.bswap,
+    earningToken: tokens.xrice,
+    contractAddress: {
+      32520: '0xc917F2C2dE8BBc7c645df381095BFb9307cBFf62',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '2.3',
+  },
 //   {
 //     sousId: 174,
 //     stakingToken: tokens.cake,
