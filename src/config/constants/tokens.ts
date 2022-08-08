@@ -292,6 +292,16 @@ const tokens = {
     },
     decimals: 18,
     projectLink: 'https://cubeprotocol.io/',
+  },
+  xrice: {
+    symbol: 'xRICE',
+    address: {
+      32520: '0x722f5f012D29Cc4d6464B6a46343fBA3881eaa56',
+      56: '',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://riceprotocol.org',
   }
   
 
