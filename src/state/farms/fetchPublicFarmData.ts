@@ -4,7 +4,9 @@ import erc20 from 'config/abi/erc20.json'
 import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
 import { getRouterContract } from 'utils/contractHelpers'
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber'
+import getTokenUSDPrice from 'utils/getTokenUSDPrice'
 import multicall from 'utils/multicall'
+import tokens from 'config/constants/tokens';
 import { Farm, SerializedBigNumber } from '../types'
 
 type PublicFarmData = {
@@ -95,13 +97,13 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   let lpTokenPriceInBrise = new BigNumber(0)
   let brisePriceUsd = new BigNumber(0)
   if(!farm.isLpToken){
-    const briseAmountIn = "1000000000000000000"
-    const [, brisePriceUSDTBN] = await router.methods.getAmountsOut(briseAmountIn, [wbriseAddress, "0xDe14b85cf78F2ADd2E867FEE40575437D5f10c06"]).call({gasPrice: "0"})
-    brisePriceUsd =  new BigNumber(brisePriceUSDTBN).div(BIG_TEN.pow(new BigNumber(18)))
-    const amountIn = new BigNumber(1).times(BIG_TEN.pow(new BigNumber(farm.lpDecimals)))
-    const [farmToken, brisePriceBN] = await router.methods.getAmountsOut(amountIn, path).call({gasPrice: "0"})
-    lpTokenPriceInBrise = new BigNumber(brisePriceBN).div(BIG_TEN.pow(new BigNumber(wbriseDecimals)))
-    // lpTokenPriceInBrise = new BigNumber(brisePriceBN).div(BIG_TEN.pow(new BigNumber(18)))
+    // wbnb === wbrise
+    brisePriceUsd = await getTokenUSDPrice(tokens.wbnb.address, 1, tokens.wbnb.decimals, tokens.usdt.address, tokens.usdt.decimals)
+    
+    // const [, brisePriceBN] = await router.methods.getAmountsOut(amountIn, path).call({gasPrice: "0"})
+    // lpTokenPriceInBrise = new BigNumber(brisePriceBN).div(BIG_TEN.pow(new BigNumber(wbriseDecimals)))
+
+    lpTokenPriceInBrise = await getTokenUSDPrice(lpAddresses, 1, farm.lpDecimals, tokens.wbnb.address, tokens.wbnb.decimals)
   }
   const lpTokenPriceUsd = lpTokenPriceInBrise.times(brisePriceUsd)
   // const lpTokenPriceUsd = lpTokenPriceInBrise

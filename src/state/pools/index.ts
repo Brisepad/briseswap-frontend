@@ -7,6 +7,7 @@ import { PoolsState, Pool, CakeVault, VaultFees, VaultUser, AppThunk } from 'sta
 import { getPoolApr } from 'utils/apr'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { getAddress } from 'utils/addressHelpers'
+import getTokenUSDPrice from 'utils/getTokenUSDPrice'
 import { fetchPoolsBlockLimits, fetchPoolsStakingLimits, fetchPoolsTotalStaking } from './fetchPools'
 import {
   fetchPoolsAllowance,
@@ -48,6 +49,34 @@ export const fetchPoolsPublicDataAsync = (currentBlock: number) => async (dispat
   const blockLimits = await fetchPoolsBlockLimits()
   const totalStakings = await fetchPoolsTotalStaking()
   const prices = getTokenPricesFromFarm(getState().farms.data)
+  // console.log("Prices: ", prices)
+  // console.log("poolsConfig: ", poolsConfig)
+  // poolsConfig.forEach((pool, index) => {
+  //   console.log(pool)
+  // })
+  for(let i=0; i<poolsConfig.length; i++){
+    const poolStakingAddress = poolsConfig[i].stakingToken.address ? getAddress(poolsConfig[i].stakingToken.address).toLowerCase() : null
+    const earningTokenAddress = poolsConfig[i].earningToken.address ? getAddress(poolsConfig[i].earningToken.address).toLowerCase() : null
+    
+    // const earningTokenPrice = poolTokenAddress ? prices[poolTokenAddress] : 0
+    if(poolStakingAddress != null){
+      if(!(prices[poolStakingAddress])){
+        // eslint-disable-next-line no-await-in-loop
+        const poolTokenPrice = await getTokenUSDPrice(poolsConfig[i].stakingToken.address, 1, poolsConfig[i].stakingToken.decimals)
+        prices[poolStakingAddress] = poolTokenPrice.toJSON()
+      }
+    }
+
+    if(earningTokenAddress != null){
+      if(!(prices[earningTokenAddress])){
+        // eslint-disable-next-line no-await-in-loop
+        const poolTokenPrice = await getTokenUSDPrice(poolsConfig[i].earningToken.address, 1, poolsConfig[i].earningToken.decimals)
+        prices[earningTokenAddress] = poolTokenPrice.toJSON()
+      }
+    }
+    
+  }
+
 
   const liveData = poolsConfig.map((pool) => {
     const blockLimit = blockLimits.find((entry) => entry.sousId === pool.sousId)
@@ -55,10 +84,17 @@ export const fetchPoolsPublicDataAsync = (currentBlock: number) => async (dispat
     const isPoolEndBlockExceeded = currentBlock > 0 && blockLimit ? currentBlock > Number(blockLimit.endBlock) : false
     const isPoolFinished = pool.isFinished || isPoolEndBlockExceeded
 
+    
     const stakingTokenAddress = pool.stakingToken.address ? getAddress(pool.stakingToken.address).toLowerCase() : null
     const stakingTokenPrice = stakingTokenAddress ? prices[stakingTokenAddress] : 0
     const earningTokenAddress = pool.earningToken.address ? getAddress(pool.earningToken.address).toLowerCase() : null
     const earningTokenPrice = earningTokenAddress ? prices[earningTokenAddress] : 0
+    // console.log("Prices: ", prices)
+    
+    // eslint-disable-next-line no-nested-ternary
+    
+    // console.log("stakingTokenAddress: ", stakingTokenAddress, "stakingTokenPrice: ", stakingTokenPrice)
+    // console.log("earningTokenAddress: ", earningTokenAddress, "earningTokenPrice: ", earningTokenPrice)
     const apr = !isPoolFinished
       ? getPoolApr(
           stakingTokenPrice,
