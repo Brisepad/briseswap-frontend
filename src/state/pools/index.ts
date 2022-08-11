@@ -5,9 +5,10 @@ import poolsConfig from 'config/constants/pools'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { PoolsState, Pool, CakeVault, VaultFees, VaultUser, AppThunk } from 'state/types'
 import { getPoolApr } from 'utils/apr'
+import getTokenUSDPrice from 'utils/getTokenUSDPrice'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { getAddress } from 'utils/addressHelpers'
-import getTokenUSDPrice from 'utils/getTokenUSDPrice'
+
 import { fetchPoolsBlockLimits, fetchPoolsStakingLimits, fetchPoolsTotalStaking } from './fetchPools'
 import {
   fetchPoolsAllowance,
