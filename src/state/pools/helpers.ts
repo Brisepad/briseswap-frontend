@@ -32,18 +32,22 @@ export const transformPool = (pool: Pool): Pool => {
   } as Pool
 }
 
+const xRICE = "0x722f5f012D29Cc4d6464B6a46343fBA3881eaa56"
 export const getTokenPricesFromFarm = (farms: Farm[]) => {
+  // console.log("Farms: ", farms)
   return farms.reduce((prices, farm) => {
     const quoteTokenAddress = getAddress(farm.quoteToken.address).toLocaleLowerCase()
     const tokenAddress = getAddress(farm.token.address).toLocaleLowerCase()
     /* eslint-disable no-param-reassign */
     if (!prices[quoteTokenAddress]) {
-      prices[quoteTokenAddress] = new BigNumber(farm.quoteToken.busdPrice).toNumber()
+      prices[quoteTokenAddress] = new BigNumber(farm.quoteToken.busdPrice).toFixed()
     }
     if (!prices[tokenAddress]) {
-      prices[tokenAddress] = new BigNumber(farm.token.busdPrice).toNumber()
+      
+      prices[tokenAddress] = new BigNumber(farm.token.busdPrice).toFixed()
     }
     /* eslint-enable no-param-reassign */
+    // console.log("Prices: ", prices)
     return prices
   }, {})
 }
