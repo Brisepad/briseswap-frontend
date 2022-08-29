@@ -35,6 +35,11 @@ const ButtonWrapper = styled.div`
   width: auto;
 `
 
+const StyledInput = styled(Input)`
+  color: ${({ theme }) => theme.colors.background};
+`
+
+
 const PastLotterySearcher: React.FC<PastLotterySearcherProps> = ({ initialLotteryNumber, onSubmit }) => {
   const [lotteryNumber, setLotteryNumber] = useState(initialLotteryNumber)
   const [isError, setIsError] = useState(false)
@@ -64,7 +69,7 @@ const PastLotterySearcher: React.FC<PastLotterySearcherProps> = ({ initialLotter
       <form onSubmit={handleSubmit}>
         <SearchWrapper>
           <InputWrapper>
-            <Input
+            <StyledInput
               value={lotteryNumber}
               type="number"
               inputMode="numeric"
