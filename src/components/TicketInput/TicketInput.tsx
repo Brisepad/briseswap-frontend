@@ -18,7 +18,7 @@ const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, 
   return (
     <>
       <Flex alignItems="center">
-        <Input type="number" inputMode="numeric" min="0" onChange={onChange} placeholder="0" value={value} />
+        <StyledInput type="number" inputMode="numeric" min="0" onChange={onChange} placeholder="0" value={value} />
         <StyledTokenAdornmentWrapper>
           <StyledSpacer />
           <StyledTokenSymbol>{symbol}</StyledTokenSymbol>
@@ -35,6 +35,11 @@ const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, 
   )
 }
 
+const StyledInput = styled(Input)`
+  border-radius: 16px;
+  margin-left: auto;
+  color: ${({ theme }) => theme.colors.background};
+`
 const StyledSpacer = styled.div`
   width: ${(props) => props.theme.spacing[3]}px;
 `

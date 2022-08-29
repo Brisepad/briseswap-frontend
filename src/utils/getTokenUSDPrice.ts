@@ -10,16 +10,16 @@ import { Address } from 'config/constants/types'
 
 const getTokenUSDPrice = async(tokenInAddress: Address, tokenInAmount: number, tokenInDecimals: number, tokenOutAddress: Address = tokens.usdt.address, tokenOutDecimals: number = tokens.usdt.decimals) => {
     try {
-        
+        if(getAddress(tokenInAddress) === getAddress(tokenOutAddress)){
+            return new BigNumber(1)
+        }
         const tokenAmountIn: BigNumber = new BigNumber(tokenInAmount).multipliedBy(BIG_TEN.pow(new BigNumber(tokenInDecimals)))
         const router = getRouterContract()
         const [, tokenPriceBN] = await router.methods.getAmountsOut(tokenAmountIn, [getAddress(tokenInAddress), getAddress(tokenOutAddress)]).call({gasPrice: "0"})
         const tokenPrice = new BigNumber(tokenPriceBN).div(BIG_TEN.pow(new BigNumber(tokenOutDecimals)))
-        // console.log("Yes: ", getAddress(tokenInAddress))
         return tokenPrice
     } catch (error) {
         console.log(error)
-        // console.log(getAddress(tokenInAddress))
         return new BigNumber(0.000034)
     }
 
