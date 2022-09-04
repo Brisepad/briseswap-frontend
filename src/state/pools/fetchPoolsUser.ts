@@ -65,7 +65,7 @@ export const fetchUserStakeBalances = async (account) => {
   const stakedBalances = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
-      [pool.sousId]: new BigNumber(userInfo[index].amount._hex).toJSON(),
+      [pool.sousId]: new BigNumber(userInfo[index]?.amount._hex).toJSON(),
     }),
     {},
   )
