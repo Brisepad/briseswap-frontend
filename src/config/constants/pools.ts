@@ -1,6 +1,7 @@
 import tokens from './tokens'
 import { PoolConfig, PoolCategory } from './types'
 
+// Latest sousId = 17
 const pools: PoolConfig[] = [
   {
     sousId: 0,
@@ -31,6 +32,48 @@ const pools: PoolConfig[] = [
   //   sortOrder: 999,
   //   tokenPerBlock: '10',
   // },
+  {
+    sousId: 17,
+    stakingToken: tokens.rice,
+    earningToken: tokens.xrice,
+    contractAddress: {
+      32520: '0x1Af6da32f7e54a7B8749d8a696b5D9e2c59ca987',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '0.57',
+  },
+  {
+    sousId: 16,
+    stakingToken: tokens.bswap,
+    earningToken: tokens.rice,
+    contractAddress: {
+      32520: '0x1afeE66fc82E565546255f4c2a488c44b4CdC969',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '0.86',
+  },
+  {
+    sousId: 15,
+    stakingToken: tokens.bswap,
+    earningToken: tokens.usdt,
+    contractAddress: {
+      32520: '0xdfAE241370640a7B45aFc09ed176a408754913EB',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '0.005',
+  },
   {
     sousId: 12,
     stakingToken: tokens.xrice,
