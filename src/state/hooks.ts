@@ -10,6 +10,7 @@ import Nfts from 'config/constants/nfts'
 import { farmsConfig } from 'config/constants'
 import { getWeb3NoAccount } from 'utils/web3'
 import { getBalanceAmount } from 'utils/formatBalance'
+import getNodeUrl, { bitkeepLocalhost } from 'utils/getRpcUrl'
 import { BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from 'hooks/useRefresh'
 import { filterFarmsByQuoteToken } from 'utils/farmsPriceHelpers'
@@ -36,7 +37,17 @@ export const usePollFarmsData = (includeArchive = false) => {
   const { library } = useWeb3React()
   const dispatch = useAppDispatch()
   const { slowRefresh } = useRefresh()
-  const web3 = useMemo(() => (library ? new Web3(library) : getWeb3NoAccount()), [library])
+  const web3 = useMemo(() => {
+    // Change Bitkeep wallet RPC url
+    if(library && library.rpc && (window as WindowChain)?.bitkeep?.ethereum.isBitKeep && (window as WindowChain)?.bitkeep?.ethereum.isBitEthereum){
+      if(library.rpc.rpcUrl === bitkeepLocalhost){
+        library.rpc.rpcUrl = getNodeUrl()
+      }
+    }
+
+    return (library ? new Web3(library) : getWeb3NoAccount())
+  }, [library])
+
   const { account } = useWeb3React()
 
   useEffect(() => {
@@ -65,8 +76,16 @@ export const usePollCoreFarmData = () => {
   const { library } = useWeb3React()
   const dispatch = useAppDispatch()
   const { fastRefresh } = useRefresh()
-  const web3 = useMemo(() => (library ? new Web3(library) : getWeb3NoAccount()), [library])
+  const web3 = useMemo(() => {
+    // Change Bitkeep wallet RPC url
+    if(library && library.rpc && (window as WindowChain)?.bitkeep?.ethereum.isBitKeep && (window as WindowChain)?.bitkeep?.ethereum.isBitEthereum){
+      if(library.rpc.rpcUrl === bitkeepLocalhost){
+        library.rpc.rpcUrl = getNodeUrl()
+      }
+    }
 
+    return (library ? new Web3(library) : getWeb3NoAccount())
+  }, [library])
   useEffect(() => {
     // dispatch(fetchFarmsPublicDataAsync([1, 2]))
     dispatch(fetchFarmsPublicDataAsync([1]))
@@ -76,13 +95,26 @@ export const usePollCoreFarmData = () => {
 export const usePollBlockNumber = () => {
   const { library } = useWeb3React()
   const dispatch = useAppDispatch()
-  const web3 = useMemo(() => (library ? new Web3(library) : getWeb3NoAccount()), [library])
+  const web3 = useMemo(() => {
+    // Change Bitkeep wallet RPC url
+    if(library && library.rpc && library.rpc && (window as WindowChain)?.bitkeep?.ethereum.isBitKeep && (window as WindowChain)?.bitkeep?.ethereum.isBitEthereum){
+      if(library.rpc.rpcUrl === bitkeepLocalhost){
+        library.rpc.rpcUrl = getNodeUrl()
+      }
+    }
 
+    return (library ? new Web3(library) : getWeb3NoAccount())
+  }, [library])
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const blockNumber = await web3.eth.getBlockNumber()
-      dispatch(setBlock(blockNumber))
+      try {
+        const blockNumber = await web3.eth.getBlockNumber()
+        dispatch(setBlock(blockNumber))
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        // console.log(error)
+      }
     }, 6000)
 
     return () => clearInterval(interval)
@@ -160,17 +192,30 @@ export const useFetchPublicPoolsData = () => {
   const { library } = useWeb3React()
   const dispatch = useAppDispatch()
   const { slowRefresh } = useRefresh()
-  const web3 = useMemo(() => (library ? new Web3(library) : getWeb3NoAccount()), [library])
-
-
-  useEffect(() => {
-    const fetchPoolsPublicData = async () => {
-      const blockNumber = await web3.eth.getBlockNumber()
-      dispatch(fetchPoolsPublicDataAsync(blockNumber))
+  const web3 = useMemo(() => {
+    // Change Bitkeep wallet RPC url
+    if(library && library.rpc && (window as WindowChain)?.bitkeep?.ethereum.isBitKeep && (window as WindowChain)?.bitkeep?.ethereum.isBitEthereum){
+      if(library.rpc.rpcUrl === bitkeepLocalhost){
+        library.rpc.rpcUrl = getNodeUrl()
+      }
     }
 
-    fetchPoolsPublicData()
-    dispatch(fetchPoolsStakingLimitsAsync())
+    return (library ? new Web3(library) : getWeb3NoAccount())
+  }, [library])
+
+  useEffect(() => {
+    try {
+      const fetchPoolsPublicData = async () => {
+        const blockNumber = await web3.eth.getBlockNumber()
+        dispatch(fetchPoolsPublicDataAsync(blockNumber))
+      }
+  
+      fetchPoolsPublicData()
+      dispatch(fetchPoolsStakingLimitsAsync())
+      
+    } catch (error) {
+      console.error(error)
+    }
   }, [dispatch, slowRefresh, web3])
 }
 

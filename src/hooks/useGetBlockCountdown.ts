@@ -13,27 +13,32 @@ const useBlockCountdown = (blockNumber: number) => {
 
   useEffect(() => {
     const startCountdown = async () => {
-      const web3 = window.initWeb3 ? (window.initWeb3) : getWeb3NoAccount()
-      const currentBlock = await web3.eth.getBlockNumber()
+      try {
+        const web3 = window.initWeb3 ? (window.initWeb3) : getWeb3NoAccount()
+        const currentBlock = await web3.eth.getBlockNumber()
 
-      if (blockNumber > currentBlock) {
-        setSecondsRemaining((blockNumber - currentBlock) * BSC_BLOCK_TIME)
+        if (blockNumber > currentBlock) {
+          setSecondsRemaining((blockNumber - currentBlock) * BSC_BLOCK_TIME)
 
-        // Clear previous interval
-        if (timer.current) {
-          clearInterval(timer.current)
+          // Clear previous interval
+          if (timer.current) {
+            clearInterval(timer.current)
+          }
+
+          timer.current = setInterval(() => {
+            setSecondsRemaining((prevSecondsRemaining) => {
+              if (prevSecondsRemaining === 1) {
+                clearInterval(timer.current)
+              }
+
+              return prevSecondsRemaining - 1
+            })
+          }, 1000)
         }
-
-        timer.current = setInterval(() => {
-          setSecondsRemaining((prevSecondsRemaining) => {
-            if (prevSecondsRemaining === 1) {
-              clearInterval(timer.current)
-            }
-
-            return prevSecondsRemaining - 1
-          })
-        }, 1000)
+      } catch (error) {
+        console.error(error)
       }
+      
     }
 
     startCountdown()
