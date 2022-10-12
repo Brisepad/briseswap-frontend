@@ -43,6 +43,16 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://briseswap.finance/',
   },
+  arco: {
+    symbol: 'ARCO',
+    address: {
+      32520: '0xbfa6394b9898566652276f1Fb40d65e75787D66f',
+      56: '',
+      97: '',
+    },
+    decimals: 9,
+    projectLink: 'https://briseswap.finance/',
+  },
   sphynx: {
     symbol: 'SPHYNX',
     address: {
