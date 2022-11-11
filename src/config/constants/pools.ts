@@ -33,6 +33,20 @@ const pools: PoolConfig[] = [
   //   tokenPerBlock: '10',
   // },
   {
+    sousId: 22,
+    stakingToken: tokens.arco,
+    earningToken: tokens.bswap,
+    contractAddress: {
+      32520: '0x0Ba53E07DA9264A743c3C971Bab03e4E719B0634',
+      97: '',
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 999,
+    tokenPerBlock: '5.7',
+  },
+  {
     sousId: 21,
     stakingToken: tokens.baskom,
     earningToken: tokens.arco,
