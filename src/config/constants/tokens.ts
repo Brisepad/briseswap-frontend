@@ -256,11 +256,11 @@ const tokens = {
   usdt: {
     symbol: 'USDT',
     address: {
-      32520: '0xDe14b85cf78F2ADd2E867FEE40575437D5f10c06',
+      32520: '0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D',
       56: '',
       97: '',
     },
-    decimals: 18,
+    decimals: 6,
     projectLink: 'https://tether.to',
   },
   abr: {

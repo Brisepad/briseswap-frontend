@@ -50,11 +50,8 @@ export const fetchPoolsPublicDataAsync = (currentBlock: number) => async (dispat
   const blockLimits = await fetchPoolsBlockLimits()
   const totalStakings = await fetchPoolsTotalStaking()
   const prices = getTokenPricesFromFarm(getState().farms.data)
-  // console.log("Prices: ", prices)
-  // console.log("poolsConfig: ", poolsConfig)
-  // poolsConfig.forEach((pool, index) => {
-  //   console.log(pool)
-  // })
+  
+
   for(let i=0; i<poolsConfig.length; i++){
     const poolStakingAddress = poolsConfig[i].stakingToken.address ? getAddress(poolsConfig[i].stakingToken.address).toLowerCase() : null
     const earningTokenAddress = poolsConfig[i].earningToken.address ? getAddress(poolsConfig[i].earningToken.address).toLowerCase() : null

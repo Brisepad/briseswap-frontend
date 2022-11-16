@@ -23,9 +23,6 @@ type PublicFarmData = {
   multiplier: string
 }
 
-const wbriseAddress = "0x0eb9036cbE0f052386f36170c6b07eF0a0E3f710"
-const wbriseDecimals = 18
-
 
 const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   try {
@@ -75,7 +72,6 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
 
   // Ratio in % of LP tokens that are staked in the MC, vs the total number in circulation
   const lpTokenRatio = new BigNumber(lpTokenBalanceMC).div(new BigNumber(lpTotalSupply))
-  // console.log(`farm ${farm.pid}: `, lpTokenBalanceMC[0].toNumber())
   const farmTokenTotal = new BigNumber(lpTokenBalanceMC).div(BIG_TEN.pow(new BigNumber(farm.lpDecimals)))
 
   // Raw amount of token in the LP, including those not staked
@@ -90,23 +86,16 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   const lpTotalInQuoteToken = quoteTokenAmountMc.times(new BigNumber(2))
 
   // For farms that tokens instead of LP tokens. Get token price in Brise via the Router
-  const path = [lpAddress, wbriseAddress]
-  // const path = [lpAddress, "0xDe14b85cf78F2ADd2E867FEE40575437D5f10c06"]
-
-  const router = getRouterContract()
   let lpTokenPriceInBrise = new BigNumber(0)
   let brisePriceUsd = new BigNumber(0)
   if(!farm.isLpToken){
     // wbnb === wbrise
     brisePriceUsd = await getTokenUSDPrice(tokens.wbnb.address, 1, tokens.wbnb.decimals, tokens.usdt.address, tokens.usdt.decimals)
     
-    // const [, brisePriceBN] = await router.methods.getAmountsOut(amountIn, path).call({gasPrice: "0"})
-    // lpTokenPriceInBrise = new BigNumber(brisePriceBN).div(BIG_TEN.pow(new BigNumber(wbriseDecimals)))
-
+    
     lpTokenPriceInBrise = await getTokenUSDPrice(lpAddresses, 1, farm.lpDecimals, tokens.wbnb.address, tokens.wbnb.decimals)
   }
   const lpTokenPriceUsd = lpTokenPriceInBrise.times(brisePriceUsd)
-  // const lpTokenPriceUsd = lpTokenPriceInBrise
   
   // Only make masterchef calls if farm has pid
   const [info, totalAllocPoint] =
@@ -126,7 +115,6 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
 
       const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
       const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO
-
   return {
     tokenAmountMc: tokenAmountMc.toJSON(),
     quoteTokenAmountMc: quoteTokenAmountMc.toJSON(),
