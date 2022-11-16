@@ -9,6 +9,7 @@ import { Address } from 'config/constants/types'
 // const USDT_DECIMALS = 18
 
 const getTokenUSDPrice = async(tokenInAddress: Address, tokenInAmount: number, tokenInDecimals: number, tokenOutAddress: Address = tokens.usdt.address, tokenOutDecimals: number = tokens.usdt.decimals) => {
+    
     try {
         if(getAddress(tokenInAddress) === getAddress(tokenOutAddress)){
             return new BigNumber(1)
@@ -20,7 +21,8 @@ const getTokenUSDPrice = async(tokenInAddress: Address, tokenInAmount: number, t
         return tokenPrice
     } catch (error) {
         console.log(error)
-        return new BigNumber(0.000034)
+        // return new BigNumber(0.0000034)
+        return new BigNumber(0)
     }
 
 }

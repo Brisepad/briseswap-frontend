@@ -45,6 +45,32 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   },
   {
+    pid: 34,
+    lpSymbol: 'BPAD-USDT LP',
+    lpAddresses: {
+      32520: '0xcAFaa330096aB704EB569eC2c03628D55e5643Dd',
+      97: '',
+      56: '',
+    },
+    lpDecimals: 18,
+    isLpToken: true,
+    token: tokens.bpad,
+    quoteToken: tokens.usdt,
+  },
+  {
+    pid: 33,
+    lpSymbol: 'BSWAP-USDT LP',
+    lpAddresses: {
+      32520: '0xe66Ff0BB1dD09162296Aa98605328fe21baAB9e6',
+      97: '',
+      56: '',
+    },
+    lpDecimals: 18,
+    isLpToken: true,
+    token: tokens.bswap,
+    quoteToken: tokens.usdt,
+  },
+  {
     pid: 32,
     lpSymbol: 'CCUBE TOKEN',
     lpAddresses: {
@@ -94,6 +120,19 @@ const farms: FarmConfig[] = [
     lpDecimals: 18,
     isLpToken: false,
     token: tokens.sphynx,
+    quoteToken: tokens.wbnb,
+  },
+  {
+    pid: 35,
+    lpSymbol: 'USDT-BRISE LP',
+    lpAddresses: {
+      32520: '0x28baA677a8eC2f997246ba6B0911aEca304BF110',
+      97: '',
+      56: '',
+    },
+    lpDecimals: 18,
+    isLpToken: true,
+    token: tokens.usdt,
     quoteToken: tokens.wbnb,
   },
   {
@@ -371,7 +410,7 @@ const farms: FarmConfig[] = [
   },
   {
     pid: 26,
-    lpSymbol: 'USDT-BRISE LP',
+    lpSymbol: 'USDT-BRISE(Old) LP',
     lpAddresses: {
       32520: '0xAa5744f1de96e0acF432e1a93C8011445472F286',
       97: '',
