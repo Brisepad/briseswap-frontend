@@ -149,6 +149,7 @@ const Farms: React.FC = () => {
         if (!farm.lpTotalInQuoteToken || !farm.quoteToken.busdPrice) {
           return farm
         }
+        
         const totalLiquidity = farm.isLpToken ? (new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)) : (new BigNumber(farm.farmTokenTotal).times(farm.lpTokenPriceUsd))
         
         const apr = isActive ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity) : 0
