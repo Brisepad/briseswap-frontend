@@ -385,6 +385,7 @@ export const useAchievements = () => {
 
 export const usePriceBnbBusd = (): BigNumber => {
   const bnbBusdFarm = useFarmFromPid(35)
+  console.log("Pid 35: ", bnbBusdFarm)
   return new BigNumber(bnbBusdFarm.quoteToken.busdPrice)
 }
 
