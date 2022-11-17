@@ -15,17 +15,10 @@ export const getPoolApr = (
   totalStaked: number,
   tokenPerBlock: number,
 ): number => {
-  // console.log('stakingTokenPrice: ', stakingTokenPrice)
-  // console.log('rewardTokenPrice: ', rewardTokenPrice)
-  // console.log('totalStaked: ', totalStaked)
-  // console.log('tokenPerBlock: ', tokenPerBlock)
 
   const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerBlock).times(BLOCKS_PER_YEAR)
   const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked)
   const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100)
-  // console.log("Pool APR: ", apr.toJSON())
-  // console.log("Pool stakingTokenPrice: ", stakingTokenPrice)
-  // console.log("Pool rewardTokenPrice: ", rewardTokenPrice)
   return apr.isNaN() || !apr.isFinite() ? 0 : apr.toNumber()
 }
 
@@ -37,18 +30,9 @@ export const getPoolApr = (
  * @returns
  */
 export const getFarmApr = (poolWeight: BigNumber, cakePriceUsd: BigNumber, poolLiquidityUsd: BigNumber): number => {
-  // console.log("poolWeight: ", poolWeight.toNumber())
-  // console.log("cakePriceUsd: ", cakePriceUsd.toNumber())
-  console.log("poolLiquidityUsd: ", poolLiquidityUsd.toNumber())
-  if(poolLiquidityUsd.toNumber() === 0){
-    const randnum = Math.floor(Math.random() * (1500 - 700 + 1) + 700)
-    
-    // eslint-disable-next-line no-param-reassign
-    poolLiquidityUsd = new BigNumber(randnum)
-  }
+  
   const yearlyCakeRewardAllocation = CAKE_PER_YEAR.times(poolWeight)
   const apr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100)
-  // console.log("apr: ", apr.toNumber())
 
   return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()
 }
