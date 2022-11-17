@@ -90,12 +90,12 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   let brisePriceUsd = new BigNumber(0)
   if(!farm.isLpToken){
     // wbnb === wbrise
-    brisePriceUsd = await getTokenUSDPrice(tokens.wbnb.address, 1, tokens.wbnb.decimals, tokens.usdt.address, tokens.usdt.decimals)
-    
+    // 100 $Brise USD price
+    brisePriceUsd = await getTokenUSDPrice(tokens.wbnb.address, 100, tokens.wbnb.decimals, tokens.usdt.address, tokens.usdt.decimals)
     
     lpTokenPriceInBrise = await getTokenUSDPrice(lpAddresses, 1, farm.lpDecimals, tokens.wbnb.address, tokens.wbnb.decimals)
   }
-  const lpTokenPriceUsd = lpTokenPriceInBrise.times(brisePriceUsd)
+  const lpTokenPriceUsd = lpTokenPriceInBrise.times(brisePriceUsd).div(100)
   
   // Only make masterchef calls if farm has pid
   const [info, totalAllocPoint] =

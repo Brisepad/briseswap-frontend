@@ -47,7 +47,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, onDismiss }) => {
         Math.floor(Math.random() * maxNumber) + 1,
         Math.floor(Math.random() * maxNumber) + 1,
       ])
-      console.log("numbers: ", numbers)
+      
       const txHash = await onMultiBuy(LOTTERY_TICKET_PRICE.toString(), numbers)
       // user rejected tx or didn't go thru
       if (txHash) {
