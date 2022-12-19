@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js'
 import masterchefABI from 'config/abi/masterchef.json'
 import erc20 from 'config/abi/erc20.json'
-import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
+import routerAbi from 'config/abi/router.json'
+import { getAddress, getMasterChefAddress, getRouterAddress } from 'utils/addressHelpers'
 import { getRouterContract } from 'utils/contractHelpers'
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber'
 import getTokenUSDPrice from 'utils/getTokenUSDPrice'
@@ -96,6 +97,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     lpTokenPriceInBrise = await getTokenUSDPrice(lpAddresses, 1, farm.lpDecimals, tokens.wbnb.address, tokens.wbnb.decimals)
   }
   const lpTokenPriceUsd = lpTokenPriceInBrise.times(brisePriceUsd).div(100)
+
   
   // Only make masterchef calls if farm has pid
   const [info, totalAllocPoint] =

@@ -43,6 +43,36 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://briseswap.finance/',
   },
+  bsc: {
+    symbol: 'BSC BNB',
+    address: {
+      32520: '0x922D641a426DcFFaeF11680e5358F34d97d112E1',
+      56: '',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://briseswap.finance/',
+  },
+  usdc: {
+    symbol: 'USDC',
+    address: {
+      32520: '0x765277EebeCA2e31912C9946eAe1021199B39C61',
+      56: '',
+      97: '',
+    },
+    decimals: 6,
+    projectLink: 'https://briseswap.finance/',
+  },
+  map: {
+    symbol: 'MAP',
+    address: {
+      32520: '0x6D347fdCb302a5879545E01EceE7A176db23dCDa',
+      56: '',
+      97: '',
+    },
+    decimals: 2,
+    projectLink: 'https://briseswap.finance/',
+  },
   arco: {
     symbol: 'ARCO',
     address: {
