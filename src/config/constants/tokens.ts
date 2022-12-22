@@ -73,6 +73,16 @@ const tokens = {
     decimals: 2,
     projectLink: 'https://briseswap.finance/',
   },
+  ice: {
+    symbol: 'ICE',
+    address: {
+      32520: '0xB999Ea90607a826A3E6E6646B404c3C7d11fa39D',
+      56: '',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://briseswap.finance/',
+  },
   arco: {
     symbol: 'ARCO',
     address: {
