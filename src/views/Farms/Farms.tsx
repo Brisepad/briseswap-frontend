@@ -151,7 +151,7 @@ const Farms: React.FC = () => {
         }
 
         const totalLiquidity = farm.isLpToken ? (new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)) : (new BigNumber(farm.farmTokenTotal).times(farm.lpTokenPriceUsd))
-        
+
         const apr = isActive ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity) : 0
         return { ...farm, apr, liquidity: totalLiquidity }
       })
@@ -350,7 +350,6 @@ const Farms: React.FC = () => {
         <Heading scale="lg" color="text">
           {t('Stake Liquidity Pool (LP) tokens and other tokens to earn.')}
         </Heading>
-        <Text> {t('3% deposit fee & 2% withdrawal fee')}</Text>
       </PageHeader>
       <Page>
         <ControlContainer>
