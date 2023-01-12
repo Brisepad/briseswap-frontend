@@ -6,6 +6,7 @@ import useEagerConnect from 'hooks/useEagerConnect'
 import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber } from 'state/hooks'
 // import { useWeb3React } from '@web3-react/core'
 // import useAuth from 'hooks/useAuth'
+import { useWeb3React } from '@web3-react/core'
 // import { connectorsByName } from 'utils/web3React'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
@@ -36,33 +37,22 @@ BigNumber.config({
   DECIMAL_PLACES: 80,
 })
 
+
 const App: React.FC = () => {
-  // const { library } = useWeb3React();
-  // const { login } = useAuth()
+  const { account } = useWeb3React()
+
 
   usePollBlockNumber()
   useEagerConnect()
   useFetchProfile()
   usePollCoreFarmData()
 
-  // useEffect(() => {
-  //   const connectWalletOnPageLoad = async () => {
-  //     const connectorId = localStorage?.getItem(connectorLocalStorageKey);
-  //     if (connectorId) {
-  //         try {
-  //       const connector = connectorsByName[connectorId];
-  //         login(connector);
-  //         window.initWeb3 = library;
-  
-  //         // localStorage.setItem('isWalletConnected', true)
-  //         } catch (ex) {
-  //         console.log(ex)
-  //         }
-  //     }
-  //   }
-  //   connectWalletOnPageLoad()
-  // }, [library, login])
 
+  useEffect(() => {
+    if (account) {
+      window.hashmail?.identify(account)
+    }
+  }, [account])
   return (
     <Router history={history}>
       <ResetCSS />
