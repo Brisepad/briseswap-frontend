@@ -18,3 +18,9 @@ interface WindowChain {
     isBitKeepChrome?: boolean
   }
 }
+
+declare global {
+  interface Window {
+    hashmail: any;
+  }
+}
