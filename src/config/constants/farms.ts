@@ -46,6 +46,19 @@ const farms: FarmConfig[] = [
   },
 
   {
+    pid: 52,
+    lpSymbol: 'MEME TOKEN',
+    lpAddresses: {
+      32520: '0x44e3908686b9d91545e177C8C533120732d74562',
+      97: '',
+      56: '',
+    },
+    lpDecimals: 8,
+    isLpToken: false,
+    token: tokens.mmc,
+    quoteToken: tokens.wbnb,
+  },
+  {
     pid: 51,
     lpSymbol: 'BSWAP-BNB LP',
     lpAddresses: {
