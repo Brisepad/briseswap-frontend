@@ -63,6 +63,16 @@ const tokens = {
     decimals: 6,
     projectLink: 'https://briseswap.finance/',
   },
+  mmc: {
+    symbol: 'MMC',
+    address: {
+      32520: '0x44e3908686b9d91545e177C8C533120732d74562',
+      56: '',
+      97: '',
+    },
+    decimals: 8,
+    projectLink: 'https://briseswap.finance/',
+  },
   map: {
     symbol: 'MAP',
     address: {
